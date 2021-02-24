@@ -1,9 +1,27 @@
+/**
+ *  goldenDict.js
+ *  Copyright (C) 2021 Anaximandro Godinho.
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 var opts = {
-  'init'            : false,
-  'mouseDownTarget' : null,
-  'mouseStartX'     : 0,
-  'mouseStartY'     : 0,
-  'timerId'         : 0
+  'init': false,
+  'mouseDownTarget': null,
+  'mouseStartX': 0,
+  'mouseStartY': 0,
+  'timerId': 0
 };
 
 //-----------------------------------------------------------------------------
@@ -12,7 +30,7 @@ var opts = {
 // background page to get the info.
 //-----------------------------------------------------------------------------
 chrome.extension.sendMessage(
-  { "type" : "config" },
+  { "type": "config" },
   function (resp) {
     var key;
     opts.init = true;
@@ -46,7 +64,7 @@ chrome.extension.sendMessage(
         flag = true;
       }
     } else {
-      arr  = window.location.hostname.split(".");
+      arr = window.location.hostname.split(".");
       if (arr.length <= 0) {
         debug("window.location.hostname is empty");
         return;
@@ -54,7 +72,7 @@ chrome.extension.sendMessage(
 
       if (opts.blackList[encodeURIComponent(href)]) {
         domain = href;
-        flag   = true;
+        flag = true;
       } else {
         for (i in arr) {
           if (arr.length < 2) {
@@ -97,9 +115,9 @@ chrome.extension.sendMessage(
 );
 
 function padDigits(n, width, z) {
-  width   = width || 2;
-  z       = z || 0;
-  n       = String(n);
+  width = width || 2;
+  z = z || 0;
+  n = String(n);
   var arr = [];
 
   if (n.length >= width) {
@@ -123,7 +141,7 @@ function debug(text, standalone) {
 function fade(el, speed) {
   var timer;
   if (el.style) {
-    el.style.opacity= '1';
+    el.style.opacity = '1';
   }
   timer = setInterval(function () {
     el.style.opacity = parseFloat(el.style.opacity) - .02;
@@ -132,7 +150,7 @@ function fade(el, speed) {
       document.body.removeChild(el);
     }
   },
-  speed);
+    speed);
 }
 
 function alertOnCopy(e) {
@@ -140,39 +158,39 @@ function alertOnCopy(e) {
 
   if (opts.alertOnCopy) {
     el = document.createElement('div');
-    el.style.fontSize        = opts.alertOnCopySize;
-    el.style.fontFamily      = 'Helvetica, sans-serif';
-    el.style.fontStyle       = 'normal';
-    el.style.fontWeight      = 'normal';
-    el.style.boxShadow       = '0px 0px 16px 0px #CBCBCB';
-    el.style.border          = '1px solid #D9D900';
-    el.style.zIndex          = '100000001';
-    el.style.textAlign       = 'center';
-    el.style.color           = '#444444';
+    el.style.fontSize = opts.alertOnCopySize;
+    el.style.fontFamily = 'Helvetica, sans-serif';
+    el.style.fontStyle = 'normal';
+    el.style.fontWeight = 'normal';
+    el.style.boxShadow = '0px 0px 16px 0px #CBCBCB';
+    el.style.border = '1px solid #D9D900';
+    el.style.zIndex = '100000001';
+    el.style.textAlign = 'center';
+    el.style.color = '#444444';
     el.style.backgroundColor = '#FFFF5C';
-    el.style.position        = 'fixed';
-    el.style.borderRadius    = '.25em';
-    el.innerHTML             = "Auto Copied";
-    el.style.boxSizing       = 'content-box';
-    el.style.height          = '2em';
-    el.style.lineHeight      = '2em';
-    el.style.width           = '7em';
-    el.style.padding         = '0px';
-    el.style.margin          = '0px';
+    el.style.position = 'fixed';
+    el.style.borderRadius = '.25em';
+    el.innerHTML = "Auto Copied";
+    el.style.boxSizing = 'content-box';
+    el.style.height = '2em';
+    el.style.lineHeight = '2em';
+    el.style.width = '7em';
+    el.style.padding = '0px';
+    el.style.margin = '0px';
 
     debug("location: " + opts.alertOnCopyLocation);
     if (opts.alertOnCopyLocation === 'topLeft') {
       el.style.top = '25px';
-      el.style.left  = '25px';
+      el.style.left = '25px';
     } else if (opts.alertOnCopyLocation === 'topRight') {
-      el.style.top   = '25px';
+      el.style.top = '25px';
       el.style.right = '25px';
     } else if (opts.alertOnCopyLocation === 'bottomLeft') {
       el.style.bottom = '25px';
-      el.style.left   = '25px';
+      el.style.left = '25px';
     } else {
       el.style.bottom = '25px';
-      el.style.right  = '25px';
+      el.style.right = '25px';
     }
 
     document.body.appendChild(el);
@@ -199,15 +217,15 @@ function includeComment(params) {
   }
 
   var text;
-  var count   = (params.text.split(/\s+/)).length;
+  var count = (params.text.split(/\s+/)).length;
   var comment = '';
-  var flag    = true;
-  var url     = '';
-  var crlf    = (opts.copyAsPlainText) ? "\n" : "<br>";
+  var flag = true;
+  var url = '';
+  var crlf = (opts.copyAsPlainText) ? "\n" : "<br>";
 
   debug(
     "Use modifier to " + opts.includeUrlToggleState + " comment? " +
-    opts.includeUrlToggle + 
+    opts.includeUrlToggle +
     "; modifier key: " + opts.includeUrlToggleModifier
   );
   if (opts.includeUrlToggle) {
@@ -226,7 +244,7 @@ function includeComment(params) {
       !modifierKeyActive(params.event, opts.includeUrlToggleModifier)
     ) {
       debug(
-        "Modifier key (" + opts.includeUrlToggleModifier + 
+        "Modifier key (" + opts.includeUrlToggleModifier +
         ") was not active; adding comment"
       );
       tflag = true;
@@ -235,10 +253,10 @@ function includeComment(params) {
     if (!tflag) {
       debug("Ignoring adding comment due to modifier and state");
       if (params.merge) {
-        return(params.text);
+        return (params.text);
       }
 
-      return('');
+      return ('');
     }
   }
 
@@ -279,7 +297,7 @@ function includeComment(params) {
     var date = new Date();
     var hr;
     var timestamp;
-    
+
     if (opts.includeUrlText.indexOf('$month') >= 0) {
       comment = comment.replace(/\$month/g, padDigits(date.getMonth() + 1));
     }
@@ -325,19 +343,19 @@ function includeComment(params) {
       text = comment;
     }
 
-    return(text);
+    return (text);
   }
 
   if (params.merge) {
-    return(params.text);
+    return (params.text);
   }
 
-  return('');
+  return ('');
 }
 
 function copyAsPlainText(params) {
   params = params || {
-    'event' : {}
+    'event': {}
   };
   var s;
   var text;
@@ -357,14 +375,14 @@ function copyAsPlainText(params) {
 
     if (opts.includeUrl) {
       text = includeComment({
-        'text' : text, 'merge' : true, 'event' : params.event
+        'text': text, 'merge': true, 'event': params.event
       });
     }
 
     debug("Sending copy as plain text: " + text);
     chrome.extension.sendMessage({
-      "type" : "reformat",
-      "text" : text
+      "type": "reformat",
+      "text": text
     });
   } catch (ex) {
     debug("Caught exception: " + ex);
@@ -389,11 +407,11 @@ function autoCopyW(e) {
   var mouseTravel = false;
   debug(
     "Mouse coords: " + e.x + " - " + e.y + " - " + opts.mouseStartX + " - " +
-      opts.mouseStartY
+    opts.mouseStartY
   );
   debug(
     "Keyboard modifiers: alt=" + e.altKey + " - ctrl=" + e.ctrlKey +
-      " - shift=" + e.shiftKey
+    " - shift=" + e.shiftKey
   );
   if (opts.mouseStartX && opts.mouseStartY) {
     x = Math.abs(e.x - opts.mouseStartX);
@@ -498,15 +516,15 @@ function autoCopy(e) {
   var el;
   var s;
   var text;
-  var nodeTypes       = { 'input' : false, 'editable' : false };
-  var inputElement    = false;
+  var nodeTypes = { 'input': false, 'editable': false };
+  var inputElement = false;
   var editableElement = false;
 
   if (
     opts.mouseDownTarget &&
     opts.mouseDownTarget.nodeName &&
     (opts.mouseDownTarget.nodeName === "INPUT" ||
-    opts.mouseDownTarget.nodeName === "TEXTAREA")
+      opts.mouseDownTarget.nodeName === "TEXTAREA")
   ) {
     debug("Mouse down on input element");
     inputElement = true;
@@ -522,7 +540,7 @@ function autoCopy(e) {
   }
 
   debug(
-    "Use modifier to " + opts.ctrlState + " extension? " + opts.ctrlToDisable + 
+    "Use modifier to " + opts.ctrlState + " extension? " + opts.ctrlToDisable +
     "; modifier key: " + opts.ctrlToDisableKey
   );
   if (opts.ctrlToDisable) {
@@ -532,7 +550,7 @@ function autoCopy(e) {
       modifierKeyActive(e, opts.ctrlToDisableKey)
     ) {
       debug(
-        "Modifier key (" + opts.ctrlToDisableKey + ") was active; " + 
+        "Modifier key (" + opts.ctrlToDisableKey + ") was active; " +
         "doing copy"
       );
       flag = true;
@@ -542,7 +560,7 @@ function autoCopy(e) {
       !modifierKeyActive(e, opts.ctrlToDisableKey)
     ) {
       debug(
-        "Modifier key (" + opts.ctrlToDisableKey + ") was not active; " + 
+        "Modifier key (" + opts.ctrlToDisableKey + ") was not active; " +
         "doing copy"
       );
       flag = true;
@@ -561,10 +579,10 @@ function autoCopy(e) {
     if (
       ((e.target.nodeName === "INPUT"
         || e.target.nodeName === "TEXTAREA")
-      && e.target.type !== "checkbox"
-      && e.target.type !== "radio"
-      && !e.target.disabled
-      && !e.target.readOnly)
+        && e.target.type !== "checkbox"
+        && e.target.type !== "radio"
+        && !e.target.disabled
+        && !e.target.readOnly)
       || e.target.contentEditable === "true"
     ) {
       rv = document.execCommand('paste');
@@ -578,10 +596,10 @@ function autoCopy(e) {
         try {
           chrome.extension.sendMessage(
             {
-              "type" : "paste",
-              "text" : text
+              "type": "paste",
+              "text": text
             },
-            function(text) {
+            function (text) {
               var p1;
               var p2;
               var start;
@@ -589,9 +607,9 @@ function autoCopy(e) {
 
               if (
                 e.target.nodeName === "INPUT"
-                  || e.target.nodeName === "TEXTAREA"
+                || e.target.nodeName === "TEXTAREA"
               ) {
-                p1 = el.value.substring(0,el.selectionStart);
+                p1 = el.value.substring(0, el.selectionStart);
                 p2 = el.value.substring(el.selectionEnd);
 
                 el.value = p1 + text + p2;
@@ -622,7 +640,7 @@ function autoCopy(e) {
     return;
   }
 
-  s    = window.getSelection();
+  s = window.getSelection();
   debug("selection collapsed? " + s.isCollapsed);
   text = s.toString();
   debug("selection collapsed? " + s.isCollapsed + " - length: " + text.length);
@@ -653,14 +671,14 @@ function autoCopy(e) {
         opts.altToCopyAsLinkModifier
       );
       chrome.extension.sendMessage({
-        "type"  : "asLink",
-        "text"  : text,
-        "href"  : window.location.href,
-        "title" : document.title
+        "type": "asLink",
+        "text": text,
+        "href": window.location.href,
+        "title": document.title
       });
     } else if (opts.copyAsPlainText) {
       debug("performing copy as plain text");
-      copyAsPlainText({ 'event' : e });
+      copyAsPlainText({ 'event': e });
     } else if (opts.includeUrl) {
       debug("performing copy with comment");
       //-----------------------------------------------------------------------
@@ -670,20 +688,20 @@ function autoCopy(e) {
       rv = document.execCommand("copy");
       if (rv) {
         text = includeComment({
-          'text'  : text,
-          'merge' : false,
-          'event' : e
+          'text': text,
+          'merge': false,
+          'event': e
         });
         debug("Got comment: " + text);
         chrome.extension.sendMessage({
-          "type"    : "includeComment",
-          "comment" : text,
-          "opts"    : opts
+          "type": "includeComment",
+          "comment": text,
+          "opts": opts
         });
       } else {
         debug("Falling back to plain text copy");
         opts.copyAsPlainText = true;
-        copyAsPlainText({ 'event' : e });
+        copyAsPlainText({ 'event': e });
         opts.copyAsPlainText = false;
       }
     } else {
@@ -697,7 +715,7 @@ function autoCopy(e) {
       if (!rv) {
         debug("Falling back to plain text copy");
         opts.copyAsPlainText = true;
-        copyAsPlainText({ 'event' : e });
+        copyAsPlainText({ 'event': e });
         opts.copyAsPlainText = false;
       }
     }

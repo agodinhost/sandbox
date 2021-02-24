@@ -1,5 +1,23 @@
+/**
+ *  options.js
+ *  Copyright (C) 2021 Anaximandro Godinho.
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 var blackList = {
-  "init" : true
+  "init": true
 };
 
 function saveOptions() {
@@ -7,54 +25,54 @@ function saveOptions() {
     alert("Error local storage is unavailable.");
   }
 
-  window.localStorage.enableDebug = 
+  window.localStorage.enableDebug =
     document.getElementById("debug").checked ? true : false;
 
-  window.localStorage.alertOnCopy = 
+  window.localStorage.alertOnCopy =
     document.getElementById("aoc").checked ? true : false;
-  window.localStorage.alertOnCopySize = 
+  window.localStorage.alertOnCopySize =
     document.getElementById("aocs").style.fontSize;
 
-  window.localStorage.alertOnCopyDuration = 
+  window.localStorage.alertOnCopyDuration =
     document.getElementById("aocd").value;
   var els = document.getElementsByName("aocLocation");
-  var i=0;
-  for (i=0; i<els.length; i++) {
+  var i = 0;
+  for (i = 0; i < els.length; i++) {
     if (els[i].checked) {
       window.localStorage.alertOnCopyLocation = els[i].value;
     }
   }
-  window.localStorage.removeSelectionOnCopy = 
+  window.localStorage.removeSelectionOnCopy =
     document.getElementById("rsoc").checked ? true : false;
-  window.localStorage.enableForTextBoxes = 
+  window.localStorage.enableForTextBoxes =
     document.getElementById("eitb").checked ? true : false;
-  window.localStorage.enableForContentEditable = 
+  window.localStorage.enableForContentEditable =
     document.getElementById("eice").checked ? true : false;
-  window.localStorage.pasteOnMiddleClick = 
+  window.localStorage.pasteOnMiddleClick =
     document.getElementById("pomc").checked ? true : false;
-  window.localStorage.copyAsPlainText = 
+  window.localStorage.copyAsPlainText =
     document.getElementById("capt").checked ? true : false;
-  window.localStorage.ctrlToDisable = 
+  window.localStorage.ctrlToDisable =
     document.getElementById("dc").checked ? true : false;
-  window.localStorage.ctrlToDisableKey = 
+  window.localStorage.ctrlToDisableKey =
     document.getElementById("dck").value;
-  window.localStorage.ctrlState = 
+  window.localStorage.ctrlState =
     document.getElementById("acs").value;
-  window.localStorage.altToCopyAsLink = 
+  window.localStorage.altToCopyAsLink =
     document.getElementById("acal").checked ? true : false;
-  window.localStorage.altToCopyAsLinkModifier = 
+  window.localStorage.altToCopyAsLinkModifier =
     document.getElementById("acalo").value;
-  window.localStorage.copyAsLink = 
+  window.localStorage.copyAsLink =
     document.getElementById("cal").checked ? true : false;
-  window.localStorage.includeUrl = 
+  window.localStorage.includeUrl =
     document.getElementById("iurl").checked ? true : false;
-  window.localStorage.includeUrlToggle = 
+  window.localStorage.includeUrlToggle =
     document.getElementById("iurlemod").checked ? true : false;
-  window.localStorage.includeUrlToggleModifier = 
+  window.localStorage.includeUrlToggleModifier =
     document.getElementById("iurlmod").value;
-  window.localStorage.includeUrlToggleState = 
+  window.localStorage.includeUrlToggleState =
     document.getElementById("iurlemodstate").value;
-  window.localStorage.prependUrl = 
+  window.localStorage.prependUrl =
     document.getElementById("iurlp").checked ? true : false;
   //---------------------------------------------------------------------
   // Setting a localStorage var to empty causes it to get set to 
@@ -63,13 +81,13 @@ function saveOptions() {
   // used.
   //---------------------------------------------------------------------
   var text = document.getElementById("iurltext").value;
-  window.localStorage.includeUrlText = 
+  window.localStorage.includeUrlText =
     (text.length <= 0 || text === " ") ? " " : text;
   //---------------------------------------------------------------------
-  window.localStorage.includeUrlCommentCountEnabled = 
+  window.localStorage.includeUrlCommentCountEnabled =
     document.getElementById("iurlewc").checked ? true : false;
 
-  var count = parseInt(document.getElementById("iurlcount").value,10);
+  var count = parseInt(document.getElementById("iurlcount").value, 10);
   if (count < 1 || count > 99 || isNaN(count)) {
     window.localStorage.includeUrlCommentCount = 5;
   } else {
@@ -78,34 +96,34 @@ function saveOptions() {
 
   disableModifier();
 }
-  
+
 function restoreOptions() {
   opts = {
-    'alertOnCopy'                   : true,
-    'alertOnCopySize'               : '14px',
-    'alertOnCopyDuration'           : .75,
-    'alertOnCopyLocation'           : 'bottomRight',
-    'removeSelectionOnCopy'         : false,
-    'enableForTextBoxes'            : true,
-    'enableForContentEditable'      : true,
-    'pasteOnMiddleClick'            : false,
-    'ctrlToDisable'                 : false,
-    'ctrlToDisableKey'              : 'ctrl',
-    'ctrlState'                     : 'disable',
-    'altToCopyAsLink'               : false,
-    'altToCopyAsLinkModifier'       : 'alt',
-    'copyAsLink'                    : false,
-    'copyAsPlainText'               : false,
-    'includeUrl'                    : false,
-    'includeUrlToggle'              : false,
-    'includeUrlToggleModifier'      : 'ctrlshift',
-    'includeUrlToggleState'         : 'disable',
-    'prependUrl'                    : false,
-    'includeUrlText'                : '$crlfCopied from: $title - <$url>',
-    'includeUrlCommentCountEnabled' : false,
-    'includeUrlCommentCount'        : 5,
-    'blackList'                     : blackListToObject(),
-    'enableDebug'                   : false
+    'alertOnCopy': true,
+    'alertOnCopySize': '14px',
+    'alertOnCopyDuration': .75,
+    'alertOnCopyLocation': 'bottomRight',
+    'removeSelectionOnCopy': false,
+    'enableForTextBoxes': true,
+    'enableForContentEditable': true,
+    'pasteOnMiddleClick': false,
+    'ctrlToDisable': false,
+    'ctrlToDisableKey': 'ctrl',
+    'ctrlState': 'disable',
+    'altToCopyAsLink': false,
+    'altToCopyAsLinkModifier': 'alt',
+    'copyAsLink': false,
+    'copyAsPlainText': false,
+    'includeUrl': false,
+    'includeUrlToggle': false,
+    'includeUrlToggleModifier': 'ctrlshift',
+    'includeUrlToggleState': 'disable',
+    'prependUrl': false,
+    'includeUrlText': '$crlfCopied from: $title - <$url>',
+    'includeUrlCommentCountEnabled': false,
+    'includeUrlCommentCount': 5,
+    'blackList': blackListToObject(),
+    'enableDebug': false
   };
 
   if (!window.localStorage) {
@@ -120,31 +138,31 @@ function restoreOptions() {
   if (window.localStorage != null) {
     for (key in opts) {
       if (window.localStorage.hasOwnProperty(key)) {
-	if (key === 'blackList') {
-	  opts[key] = blackListToObject();
-	} else if (
+        if (key === 'blackList') {
+          opts[key] = blackListToObject();
+        } else if (
           key === 'alertOnCopySize' || key === 'alertOnCopyDuration' ||
           key === 'alertOnCopyLocation'
         ) {
-	  opts[key] = window.localStorage[key];
-	} else if (
+          opts[key] = window.localStorage[key];
+        } else if (
           key === 'ctrlToDisableKey' || key === 'ctrlState' ||
           key === 'altToCopyAsLinkModifier' ||
           key === 'includeUrlToggleModifier' ||
           key === 'includeUrlToggleState'
         ) {
-	  opts[key] = window.localStorage[key];
-	} else if (key === 'includeUrlCommentCount') {
+          opts[key] = window.localStorage[key];
+        } else if (key === 'includeUrlCommentCount') {
           opts[key] = parseInt(window.localStorage[key], 10);
-	} else if (key === 'includeUrlText') {
-	  opts[key] = window.localStorage[key];
-	} else {
+        } else if (key === 'includeUrlText') {
+          opts[key] = window.localStorage[key];
+        } else {
           opts[key] = window.localStorage[key] === "true" ? true : false;
-	}
+        }
       }
     }
   }
-  
+
   document.getElementById("debug").checked = opts.enableDebug;
   document.getElementById("aoc").checked = opts.alertOnCopy;
   document.getElementById("aocs").style.fontSize = opts.alertOnCopySize;
@@ -174,7 +192,7 @@ function restoreOptions() {
   document.getElementById("iurlmod").value = opts.includeUrlToggleModifier;
   document.getElementById("iurlemodstate").value = opts.includeUrlToggleState;
   document.getElementById("iurltext").value = opts.includeUrlText;
-  document.getElementById("iurlewc").checked = 
+  document.getElementById("iurlewc").checked =
     opts.includeUrlCommentCountEnabled;
   document.getElementById("iurlcount").value = opts.includeUrlCommentCount;
   if (document.getElementById("iurlewc").checked) {
@@ -182,7 +200,7 @@ function restoreOptions() {
   } else {
     document.getElementById("iurlcount").disabled = true;
   }
-  
+
   var v = opts.prependUrl;
   if (v === undefined || v === false) {
     document.getElementById("iurlp").checked = false;
@@ -237,14 +255,14 @@ function initBlackListDiv(obl) {
 }
 
 function addBlackListRow(text) {
-  var blEl  = document.getElementById("blacklist");
-  var frag  = document.createDocumentFragment();
+  var blEl = document.getElementById("blacklist");
+  var frag = document.createDocumentFragment();
   var divEl = document.createElement("div");
   frag.appendChild(divEl);
   divEl.className = "row";
   divEl.innerText = text;
   divEl.title = text;
-  divEl.addEventListener('click', function() {
+  divEl.addEventListener('click', function () {
     if (this.className.match(/selected/)) {
       this.className = this.className.replace(/\s?selected/, "");
     } else {
@@ -260,7 +278,7 @@ function stripeList(id) {
   els = document.querySelectorAll(id);
   len = els.length;
 
-  for (var i=0; i<len; i++) {
+  for (var i = 0; i < len; i++) {
     if (i % 2 === 0) {
       if (!els[i].className.match(/stripe/)) {
         els[i].className += " stripe";
@@ -272,10 +290,10 @@ function stripeList(id) {
 }
 
 function addToBlackList() {
-  var overlay     = document.getElementById("overlay");
-  var addErrorEl  = document.getElementById("addError")
-  var domain      = document.getElementById("domaintext").value;
-  var selectionD  = document.getElementById("blacklistDomain").checked;
+  var overlay = document.getElementById("overlay");
+  var addErrorEl = document.getElementById("addError")
+  var domain = document.getElementById("domaintext").value;
+  var selectionD = document.getElementById("blacklistDomain").checked;
   var encodedDomain, parsedDomain;
 
   addErrorEl.style.display = "none";
@@ -296,16 +314,16 @@ function addToBlackList() {
         return;
       }
 
-      domain = domain.replace(/.*:\/\//,"").replace(/\/.*/,"");
+      domain = domain.replace(/.*:\/\//, "").replace(/\/.*/, "");
       encodedDomain = encodeURIComponent(domain);
 
       if (blackList[encodedDomain]) {
-        addErrorEl.innerText = 
+        addErrorEl.innerText =
           "Error: domain is already in the list";
         addErrorEl.style.display = "block";
         return;
       }
-    } 
+    }
   } else {
     if (domain.match(/^file:/)) {
       encodedDomain = encodeURIComponent(domain);
@@ -321,11 +339,11 @@ function addToBlackList() {
         return;
       }
 
-      parsedDomain  = domain.replace(/.*:\/\//,"").replace(/\/.*/,"");
+      parsedDomain = domain.replace(/.*:\/\//, "").replace(/\/.*/, "");
       encodedDomain = encodeURIComponent(domain);
 
       if (blackList[parsedDomain]) {
-        addErrorEl.innerText = 
+        addErrorEl.innerText =
           "Error: page's domain is already in the list";
         addErrorEl.style.display = "block";
         return;
@@ -347,12 +365,12 @@ function addToBlackList() {
 }
 
 function removeSelectedFromBlackList() {
-  var els           = document.querySelectorAll('div.selected');
-  var len           = els.length;
-  var domain        = "";
+  var els = document.querySelectorAll('div.selected');
+  var len = els.length;
+  var domain = "";
   var encodedDomain = "";
 
-  for (var i=0; i<len; i++) {
+  for (var i = 0; i < len; i++) {
     domain = els[i].innerText;
     encodedDomain = encodeURIComponent(domain);
     if (blackList[encodedDomain] && domain === "docs.google.com") {
@@ -368,7 +386,7 @@ function removeSelectedFromBlackList() {
 }
 
 function blackListToObject() {
-  chrome.extension.sendMessage({"type" : "getBlackList"}, function (resp) {
+  chrome.extension.sendMessage({ "type": "getBlackList" }, function (resp) {
     var flag = (blackList.init) ? 1 : 0;
     blackList = resp;
 
@@ -377,44 +395,45 @@ function blackListToObject() {
     }
   });
 
-  return(blackList);
+  return (blackList);
 }
 
 function blackListToString(oBlackList) {
   var blackList = {};
 
   chrome.extension.sendMessage({
-    "type" : "writeBlackList", "blackList" : oBlackList}
+    "type": "writeBlackList", "blackList": oBlackList
+  }
   );
 }
 
 function validateCountValue() {
   var enabled = document.getElementById('iurlewc');
-  var el      = document.getElementById('iurlcount');
+  var el = document.getElementById('iurlcount');
 
   el.disabled = (enabled.checked) ? false : true;
 }
-  
+
 function toggleDiv(id) {
   var el = document.getElementById(id);
-  
+
   if (!el) {
     return
   }
-  
+
   el.style.display = (el.style.display === "block") ? "none" : "block";
 }
 
 function handleExclusivity() {
-  var cal  = document.getElementById('cal');
+  var cal = document.getElementById('cal');
   var capt = document.getElementById('capt');
   var iurl = document.getElementById('iurl');
 
   if (cal.checked) {
     capt.disabled = true;
-    capt.checked  = false;
+    capt.checked = false;
     iurl.disabled = true;
-    iurl.checked  = false;
+    iurl.checked = false;
   } else {
     capt.disabled = false;
     iurl.disabled = false;
@@ -422,103 +441,103 @@ function handleExclusivity() {
 
   if (capt.checked || iurl.checked) {
     cal.disabled = true;
-    cal.checked  = false;
+    cal.checked = false;
   } else {
     cal.disabled = false;
   }
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('smaller').addEventListener('click', function() {
-      var el = document.getElementById('aocs');
-      var fs = el.style.fontSize;
-        //window.getComputedStyle(el, null).getPropertyValue('font-size');
-      fs = parseFloat(fs);
-      fs = fs - 1;
-      el.style.fontSize = fs + 'px';
-      window.localStorage.alertOnCopySize = fs + 'px';
+  document.getElementById('smaller').addEventListener('click', function () {
+    var el = document.getElementById('aocs');
+    var fs = el.style.fontSize;
+    //window.getComputedStyle(el, null).getPropertyValue('font-size');
+    fs = parseFloat(fs);
+    fs = fs - 1;
+    el.style.fontSize = fs + 'px';
+    window.localStorage.alertOnCopySize = fs + 'px';
+  });
+  document.getElementById('bigger').addEventListener('click', function () {
+    var el = document.getElementById('aocs');
+    var fs = el.style.fontSize
+    fs = parseFloat(fs);
+    fs = fs + 1;
+    el.style.fontSize = fs + 'px';
+    window.localStorage.alertOnCopySize = fs + 'px';
+  });
+  document.getElementById('aocd').addEventListener('blur', function () {
+    if (isNaN(document.getElementById("aocd").value)) {
+      document.getElementById("aocd").value = .75;
+      window.localStorage.alertOnCopyDuration = .75;
+    }
+  });
+  document.getElementById('aoc').addEventListener('click', function () {
+    toggleDiv('aocSettings');
+  });
+  document.getElementById('iurl').addEventListener('click', function () {
+    toggleDiv('diviurlap');
+  });
+  document.getElementById('iurlewc').addEventListener(
+    'click', validateCountValue
+  );
+  document.getElementById('cal').addEventListener(
+    'click', handleExclusivity
+  );
+  document.getElementById('capt').addEventListener(
+    'click', handleExclusivity
+  );
+  document.getElementById('iurl').addEventListener(
+    'click', handleExclusivity
+  );
+  document.getElementById('iurlcount').addEventListener(
+    'click', document.getElementById('iurlcount').select
+  );
+  document.getElementById('iurlcount').addEventListener(
+    'blur', validateCountValue
+  );
+  document.getElementById('iurlcount').addEventListener(
+    'keyup', validateCountValue
+  );
+  document.getElementById('iurltext').addEventListener(
+    'click', document.getElementById('iurltext').select
+  );
+  document.getElementById('removeBtn').addEventListener(
+    'click', removeSelectedFromBlackList
+  );
+  document.getElementById('addBtn').addEventListener(
+    'click', function () {
+      var overlay = document.getElementById("overlay");
+      overlay.style.visibility = "visible";
+      document.getElementById("domaintext").select();
     });
-    document.getElementById('bigger').addEventListener('click', function() {
-      var el = document.getElementById('aocs');
-      var fs = el.style.fontSize 
-      fs = parseFloat(fs);
-      fs = fs + 1;
-      el.style.fontSize = fs + 'px';
-      window.localStorage.alertOnCopySize = fs + 'px';
-    });
-    document.getElementById('aocd').addEventListener('blur', function () {
-      if (isNaN(document.getElementById("aocd").value)) {
-        document.getElementById("aocd").value = .75;
-        window.localStorage.alertOnCopyDuration = .75;
+  document.getElementById('addOverlayBtn').addEventListener(
+    'click', addToBlackList
+  );
+  document.getElementById("domaintext").addEventListener(
+    'keyup', function (e) {
+      if (e.keyCode == 13) {
+        addToBlackList();
       }
     });
-    document.getElementById('aoc').addEventListener('click', function() {
-      toggleDiv('aocSettings');
-    });
-    document.getElementById('iurl').addEventListener('click', function() {
-      toggleDiv('diviurlap');
-    });
-    document.getElementById('iurlewc').addEventListener(
-      'click', validateCountValue
-    );
-    document.getElementById('cal').addEventListener(
-      'click', handleExclusivity
-    );
-    document.getElementById('capt').addEventListener(
-      'click', handleExclusivity
-    );
-    document.getElementById('iurl').addEventListener(
-      'click', handleExclusivity
-    );
-    document.getElementById('iurlcount').addEventListener(
-      'click', document.getElementById('iurlcount').select
-    );
-    document.getElementById('iurlcount').addEventListener(
-      'blur', validateCountValue
-    );
-    document.getElementById('iurlcount').addEventListener(
-      'keyup', validateCountValue
-    );
-    document.getElementById('iurltext').addEventListener(
-      'click', document.getElementById('iurltext').select
-    );
-    document.getElementById('removeBtn').addEventListener(
-      'click', removeSelectedFromBlackList
-    );
-    document.getElementById('addBtn').addEventListener(
-      'click', function() {
-        var overlay = document.getElementById("overlay");
-        overlay.style.visibility = "visible";
-        document.getElementById("domaintext").select();
-    });
-    document.getElementById('addOverlayBtn').addEventListener(
-      'click', addToBlackList
-    );
-    document.getElementById("domaintext").addEventListener(
-      'keyup', function(e) {
-        if (e.keyCode == 13) {
-          addToBlackList();
-        }
-    });
-    document.getElementById('cancelOverlayBtn').addEventListener(
-      'click', function() {
-        document.getElementById("overlay").style.visibility = "hidden";
-        document.getElementById("addError").style.display = "none";
+  document.getElementById('cancelOverlayBtn').addEventListener(
+    'click', function () {
+      document.getElementById("overlay").style.visibility = "hidden";
+      document.getElementById("addError").style.display = "none";
     });
 
-    var els = document.querySelectorAll(".autosave");
-    var len = els.length;
-    for (var i=0; i<len; i++) {
-      if (els[i].nodeName === "SELECT") {
-          els[i].addEventListener('change', saveOptions);
+  var els = document.querySelectorAll(".autosave");
+  var len = els.length;
+  for (var i = 0; i < len; i++) {
+    if (els[i].nodeName === "SELECT") {
+      els[i].addEventListener('change', saveOptions);
+    } else {
+      if (els[i].type === "text" || els[i].type === "tel") {
+        els[i].addEventListener('keyup', saveOptions);
       } else {
-        if (els[i].type === "text" || els[i].type === "tel") {
-          els[i].addEventListener('keyup', saveOptions);
-        } else {
-          els[i].addEventListener('click', saveOptions);
-        }
+        els[i].addEventListener('click', saveOptions);
       }
     }
+  }
 
-    restoreOptions();
+  restoreOptions();
 });
