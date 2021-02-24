@@ -1,4 +1,4 @@
-## Google Chrome Native Messaging
+## GoldenDict Browser Extensions.
 ----
 
 Data communication between C++ application and Google Chrome browser using JSON.

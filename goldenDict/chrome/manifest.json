@@ -5,7 +5,7 @@
   "description"             : "GoldenDict Extension ",
   "version"                 : "1.0.0",
   "icons"                   : {
-    "128" : "assets/goldenDict-64.png"
+    "128" : "goldenDict-64.png"
   },
   "manifest_version" : 2,
   "content_security_policy" : "style-src 'unsafe-inline'; default-src 'self'",
